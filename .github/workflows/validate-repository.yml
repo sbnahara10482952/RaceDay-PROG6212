@@ -12,14 +12,28 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check docs folder
+      - name: Validate repository folders
         run: |
           test -d docs
-          echo "docs folder exists"
+          test -d .github/workflows
+          echo "Required repository folders exist"
 
-      - name: Check required documentation files
+      - name: Validate documentation files
         run: |
           test -f docs/RaceDay_API_Endpoint_Plan.pdf
           test -f docs/RaceDay_Database.sql
           test -f docs/RaceDay_ERD.png
-          echo "Required documentation files exist"
+          test -f docs/RaceDay_ERD.drawio
+          test -f docs/SQL_Screenshots.pdf
+          echo "All required documentation files exist"
+
+      - name: Validate README
+        run: |
+          test -f README.md
+          test -s README.md
+          echo "README exists and contains content"
+
+      - name: Validate gitignore
+        run: |
+          test -f .gitignore
+          echo ".gitignore exists"
