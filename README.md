@@ -109,3 +109,9 @@ The screenshot below shows a successful GitHub Actions repository validation bui
 The Part 1 planning documents and design decisions are explained in the walkthrough video below.
 
 [Watch the RaceDay Part 1 walkthrough on YouTube] https://youtube.com/shorts/uIO2nlMq_Vw?feature=share
+
+## AI Use Disclosure
+
+AI tools were used during the preparation of this Portfolio of Evidence to assist with planning, documentation, proofreading and understanding of development concepts.
+
+The student reviewed, adapted and integrated the resulting work and remains responsible for understanding the submitted work and ensuring that it meets the assessment requirements.
