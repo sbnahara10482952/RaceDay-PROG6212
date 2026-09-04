@@ -1,0 +1,25 @@
+name: Validate Repository
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check docs folder
+        run: |
+          test -d docs
+          echo "docs folder exists"
+
+      - name: Check required documentation files
+        run: |
+          test -f docs/RaceDay_API_Endpoint_Plan.pdf
+          test -f docs/RaceDay_Database.sql
+          test -f docs/RaceDay_ERD.png
+          echo "Required documentation files exist"
