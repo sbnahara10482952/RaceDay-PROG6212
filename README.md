@@ -97,3 +97,9 @@ The repository validation workflow checks that:
 - The `.gitignore` file exists.
 
 A successful workflow run is displayed by GitHub with a green check mark.
+
+## Successful CI/CD Build
+
+The screenshot below shows a successful GitHub Actions repository validation build.
+
+![Successful GitHub Actions build](docs/images/ci-cd-success.png)
