@@ -115,3 +115,17 @@ The Part 1 planning documents and design decisions are explained in the walkthro
 AI tools were used during the preparation of this Portfolio of Evidence to assist with planning, documentation, proofreading and understanding of development concepts.
 
 The student reviewed, adapted and integrated the resulting work and remains responsible for understanding the submitted work and ensuring that it meets the assessment requirements.
+
+## Part 1 Documentation Checklist
+
+The following Part 1 artefacts are included in this repository:
+
+- [x] Entity Relationship Diagram
+- [x] Editable ERD source file
+- [x] REST API endpoint plan
+- [x] SQL Server database script
+- [x] SQL database verification screenshots
+- [x] GitHub Actions repository validation workflow
+- [x] Successful CI/CD build screenshot
+- [x] Part 1 walkthrough video link
+- [x] AI use disclosure
