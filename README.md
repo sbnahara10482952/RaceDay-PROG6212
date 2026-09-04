@@ -81,3 +81,19 @@ The Participant can:
 - Select an event category
 - View their enrolments
 - View their personal results
+
+## CI/CD
+
+RaceDay uses GitHub Actions to automatically validate the repository whenever changes are pushed to GitHub or submitted through a pull request.
+
+The repository validation workflow checks that:
+
+- The `/docs` folder exists.
+- The required ERD files exist.
+- The API endpoint plan exists.
+- The SQL database script exists.
+- The SQL verification screenshots exist.
+- The README exists and contains content.
+- The `.gitignore` file exists.
+
+A successful workflow run is displayed by GitHub with a green check mark.
