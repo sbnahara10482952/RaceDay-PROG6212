@@ -41,3 +41,43 @@ The SQL Server database script is available in:
 Database verification screenshots are available in:
 
 - `SQL_Screenshots.pdf`
+
+## System Description
+
+RaceDay is a web-based event management system for road running, walking and cycling events.
+
+The system allows Event Organisers to create and manage events, manage event categories, capture participant results and manage event information.
+
+Participants can register for an account, browse available events, enter events, select event categories and view their own enrolments and results.
+
+The Part 1 planning documentation establishes the database structure, planned REST API and SQL Server database required for the later implementation stages of the RaceDay system.
+
+## User Roles
+
+### Event Organiser
+
+The Event Organiser is responsible for managing RaceDay events.
+
+The Organiser can:
+
+- Create events
+- Edit event information
+- Delete events
+- Manage event categories
+- View event enrolments
+- Capture participant results
+- Manage event-related information
+
+### Participant
+
+The Participant uses RaceDay to discover events and manage their participation.
+
+The Participant can:
+
+- Create an account
+- Browse upcoming events
+- View event information
+- Enter an event
+- Select an event category
+- View their enrolments
+- View their personal results
