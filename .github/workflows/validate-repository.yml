@@ -18,14 +18,14 @@ jobs:
           test -d .github/workflows
           echo "Required repository folders exist"
 
-      - name: Validate documentation files
+      - name: Validate required documentation
         run: |
-          test -f docs/RaceDay_API_Endpoint_Plan.pdf
-          test -f docs/RaceDay_Database.sql
-          test -f docs/RaceDay_ERD.png
-          test -f docs/RaceDay_ERD.drawio
-          test -f docs/SQL_Screenshots.pdf
-          echo "All required documentation files exist"
+          test -s docs/RaceDay_API_Endpoint_Plan.pdf
+          test -s docs/RaceDay_Database.sql
+          test -s docs/RaceDay_ERD.png
+          test -s docs/RaceDay_ERD.drawio
+          test -s docs/SQL_Screenshots.pdf
+          echo "All required documentation files exist and are not empty"
 
       - name: Validate README
         run: |
