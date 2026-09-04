@@ -103,3 +103,9 @@ A successful workflow run is displayed by GitHub with a green check mark.
 The screenshot below shows a successful GitHub Actions repository validation build.
 
 ![Successful GitHub Actions build](docs/images/ci-cd-success.png)
+
+## Part 1 Walkthrough Video
+
+The Part 1 planning documents and design decisions are explained in the walkthrough video below.
+
+[Watch the RaceDay Part 1 walkthrough on YouTube] https://youtube.com/shorts/uIO2nlMq_Vw?feature=share
