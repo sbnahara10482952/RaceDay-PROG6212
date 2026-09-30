@@ -217,3 +217,5 @@ Youtube Unlisted Link for Part 2:
 https://youtube.com/shorts/uIO2nlMq_Vw?feature=share
 
 Initial API Project/controllers/models structure
+
+User, Event, Category, EventCategory, Enrolment, Result
