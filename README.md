@@ -229,3 +229,5 @@ PasswordServiceTests.cs
 Register/login/logout
 
 Session configuration in Program.cs
+
+Initial migration/database creation
