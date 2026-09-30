@@ -212,3 +212,6 @@ AI tools were used as a development support tool during the project. They were u
 The final project was reviewed, tested and implemented by myself the student. AI assistance was not used as a replacement for understanding or testing the submitted work.
 
 ![alt text](image.png)
+
+Youtube Unlisted Link for Part 2:
+https://youtube.com/shorts/uIO2nlMq_Vw?feature=share
