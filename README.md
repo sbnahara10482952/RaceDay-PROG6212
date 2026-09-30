@@ -225,3 +225,5 @@ RaceDayDBContext.cs
 appsettings.json connection setup
 
 PasswordServiceTests.cs
+
+Register/login/logout
