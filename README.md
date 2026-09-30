@@ -227,3 +227,5 @@ appsettings.json connection setup
 PasswordServiceTests.cs
 
 Register/login/logout
+
+Session configuration in Program.cs
