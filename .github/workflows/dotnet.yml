@@ -1,0 +1,33 @@
+name: RaceDay API CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - part2-api
+
+  pull_request:
+    branches:
+      - main
+      - master
+      - part2-api
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore RaceDay.API.Tests/RaceDay.API.Tests.csproj
+
+      - name: Build project
+        run: dotnet build RaceDay.API.Tests/RaceDay.API.Tests.csproj --configuration Release --no-restore
