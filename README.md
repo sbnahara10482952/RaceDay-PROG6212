@@ -221,3 +221,5 @@ Initial API Project/controllers/models structure
 User, Event, Category, EventCategory, Enrolment, Result
 
 RaceDayDBContext.cs
+
+appsettings.json connection setup
