@@ -215,3 +215,5 @@ The final project was reviewed, tested and implemented by myself the student. AI
 
 Youtube Unlisted Link for Part 2:
 https://youtube.com/shorts/uIO2nlMq_Vw?feature=share
+
+Initial API Project/controllers/models structure
