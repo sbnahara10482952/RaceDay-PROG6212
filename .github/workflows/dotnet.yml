@@ -33,5 +33,5 @@ jobs:
         run: dotnet build RaceDay.API.Tests/RaceDay.API.Tests.csproj --configuration Release --no-restore
 
       - name: Run unit tests
-        run: dotnet test RaceDay.API.Tests/RaceDay.API.Tests.csproj --configuration Release --no build
+        run: dotnet test RaceDay.API.Tests/RaceDay.API.Tests.csproj --configuration Release --no-build
 
