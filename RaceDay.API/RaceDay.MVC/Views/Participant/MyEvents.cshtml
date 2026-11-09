@@ -1,0 +1,104 @@
+﻿@model List<RaceDay.MVC.ViewModels.EnrolmentViewModel>
+
+@{
+    ViewData["Title"] = "My Events";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-2">My Events</h2>
+    <p class="text-muted">View the events you have entered and your enrolment details.</p>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info mt-4">
+            You have not entered any events yet.
+            Browse the upcoming events to find a race and enter.
+        </div>
+
+        <a asp-controller="Participant"
+           asp-action="Index"
+           class="btn btn-primary">
+            Browse Upcoming Events
+        </a>
+    }
+    else
+    {
+        <div class="row mt-4">
+            @foreach (var enrolment in Model)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">@enrolment.EventName</h5>
+
+                            <p class="text-muted mb-3">
+                                @enrolment.EventDate.ToString("dd MMMM yyyy")
+                            </p>
+
+                            <p>
+                                <strong>Location:</strong>
+                                @enrolment.Location
+                            </p>
+
+                            <p>
+                                <strong>Category:</strong>
+                                @enrolment.CategoryName
+                            </p>
+
+                            <p>
+                                <strong>Distance:</strong>
+                                @enrolment.DistanceKm km
+                            </p>
+
+                            <p>
+                                <strong>Race Number:</strong>
+                                @enrolment.RaceNumber
+                            </p>
+
+                            <p>
+                                <strong>Enrolment Date:</strong>
+                                @enrolment.EnrolmentDate.ToString("dd MMM yyyy")
+                            </p>
+
+                            <p>
+                                <strong>Status:</strong>
+
+                                @if (enrolment.EnrolmentStatus == "Confirmed")
+                                {
+                                    <span class="badge bg-success">Confirmed</span>
+                                }
+                                else if (enrolment.EnrolmentStatus == "Cancelled")
+                                {
+                                    <span class="badge bg-danger">Cancelled</span>
+                                }
+                                else if (enrolment.EnrolmentStatus == "Completed")
+                                {
+                                    <span class="badge bg-primary">Completed</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">
+                                        @enrolment.EnrolmentStatus
+                                    </span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <a asp-controller="Participant"
+       asp-action="Index"
+       class="btn btn-outline-secondary mt-2">
+        Back to Upcoming Events
+    </a>
+</div>

@@ -1,0 +1,176 @@
+﻿@model RaceDay.MVC.ViewModels.EventViewModel
+
+@{
+    ViewData["Title"] = "Event Details";
+}
+
+<div class="container mt-4">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+
+            <button type="button" class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+
+            <button type="button" class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="mb-4">
+        <a asp-controller="Participant"
+           asp-action="Index"
+           class="btn btn-outline-secondary">
+            Back to Upcoming Events
+        </a>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body p-4">
+
+            @if (!string.IsNullOrWhiteSpace(Model.BannerImageUrl))
+            {
+                <img src="@Url.Action("EventBanner", "Participant", new { id = Model.EventID })"
+                     alt="@Model.EventName banner"
+                     class="img-fluid rounded mb-4 w-100"
+                     style="max-height: 350px; object-fit: cover;" />
+            }
+
+            <span class="badge bg-success mb-3">
+                @Model.Status
+            </span>
+
+            <h1 class="fw-bold">@Model.EventName</h1>
+
+            <p class="text-muted">
+                @Model.Description
+            </p>
+
+            <hr />
+
+            <h4 class="fw-bold mb-3">Event Information</h4>
+
+            <p><strong>Date:</strong> @Model.EventDate.ToString("dd MMMM yyyy")</p>
+
+            <p><strong>Start Time:</strong> @Model.StartTime.ToString(@"hh\:mm")</p>
+
+            <p><strong>Location:</strong> @Model.Location</p>
+
+            <p><strong>Distance:</strong> @Model.DistanceKm km</p>
+
+            <p><strong>Event Type:</strong> @Model.EventType</p>
+
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+
+            <h3 class="fw-bold mb-3">Available Race Categories</h3>
+
+            <p class="text-muted">
+                Select a race category to enter this event.
+            </p>
+
+            @if (Model.Categories != null && Model.Categories.Any())
+            {
+                <form asp-controller="Participant"
+                      asp-action="EnterEvent"
+                      method="post">
+
+                    <input type="hidden"
+                           name="eventId"
+                           value="@Model.EventID" />
+
+                    @foreach (var category in Model.Categories)
+                    {
+                        <div class="card mb-3">
+                            <div class="card-body">
+
+                                <div class="form-check">
+
+                                    <input class="form-check-input"
+                                           type="radio"
+                                           name="eventCategoryId"
+                                           value="@category.EventCategoryID"
+                                           id="category_@category.EventCategoryID"
+                                           required
+                                           disabled="@(category.AvailableSlots <= 0)" />
+
+                                    <label class="form-check-label"
+                                           for="category_@category.EventCategoryID">
+
+                                        <h5 class="fw-bold">
+                                            @category.CategoryName
+                                        </h5>
+
+                                    </label>
+
+                                </div>
+
+                                <p class="mb-1">
+                                    <strong>Distance:</strong>
+                                    @category.DistanceKm km
+                                </p>
+
+                                <p class="mb-1">
+                                    <strong>Entry Fee:</strong>
+                                    R @category.EntryFee.ToString("N2")
+                                </p>
+
+                                <p class="mb-1">
+                                    <strong>Available Spaces:</strong>
+                                    @category.AvailableSlots
+                                </p>
+
+                                @if (!string.IsNullOrWhiteSpace(category.Description))
+                                {
+                                    <p class="text-muted mb-0">
+                                        @category.Description
+                                    </p>
+                                }
+
+                                @if (category.AvailableSlots <= 0)
+                                {
+                                    <span class="badge bg-danger mt-2">
+                                        Fully Booked
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success mt-2">
+                                        Available
+                                    </span>
+                                }
+
+                            </div>
+                        </div>
+                    }
+
+                    <button type="submit" class="btn btn-success">
+                        Enter Event
+                    </button>
+
+                </form>
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    No race categories are currently available for this event.
+                </div>
+            }
+
+        </div>
+    </div>
+
+</div>
