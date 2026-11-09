@@ -22,6 +22,8 @@
 
         public string Status { get; set; } = string.Empty;
 
+        public string? BannerImageUrl { get; set; }
+
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         // Relationship with the organiser

@@ -1,4 +1,10 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="docker-compose.yml" />
+    <File Path="PasswordHashGenerator.cs" />
+  </Folder>
   <Project Path="../RaceDay.API.Tests/RaceDay.API.Tests.csproj" />
+  <Project Path="PasswordTool/PasswordTool.csproj" Id="27f32611-a79d-42f8-8717-003fa6a342c3" />
   <Project Path="RaceDay.API/RaceDay.API.csproj" />
+  <Project Path="RaceDay.MVC/RaceDay.MVC.csproj" Id="0776c45a-74b6-408d-8ea9-cb9a4e2ccf12" />
 </Solution>
