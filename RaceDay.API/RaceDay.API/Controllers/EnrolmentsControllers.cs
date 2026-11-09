@@ -101,11 +101,66 @@ namespace RaceDay.API.Controllers
 
             return Ok(enrolments);
         }
+
+        [HttpPut("{enrolmentId}/status")]
+        public async Task<IActionResult> UpdateEnrolmentStatus(
+            int enrolmentId,
+            UpdateEnrolmentStatusRequest request)
+        {
+            if (!IsRole("Organiser"))
+                return Forbid();
+
+            if (request.EnrolmentStatus != "Confirmed" &&
+                request.EnrolmentStatus != "Cancelled")
+            {
+                return BadRequest("Status must be Confirmed or Cancelled.");
+            }
+
+            var enrolment = await _context.Enrolments
+                .Include(e => e.EventCategory)
+                .ThenInclude(ec => ec!.Event)
+                .FirstOrDefaultAsync(e => e.EnrolmentID == enrolmentId);
+
+            if (enrolment == null)
+                return NotFound("Enrolment not found.");
+
+            if (enrolment.EventCategory!.Event!.OrganiserID != CurrentUserId)
+                return Forbid();
+
+            if (enrolment.EnrolmentStatus == "Completed")
+                return BadRequest("Completed enrolments cannot be changed.");
+
+            if (enrolment.EnrolmentStatus == request.EnrolmentStatus)
+                return BadRequest("The enrolment already has this status.");
+
+            if (request.EnrolmentStatus == "Confirmed")
+            {
+                if (enrolment.EventCategory.AvailableSlots <= 0)
+                    return BadRequest("There are no available slots.");
+
+                enrolment.EventCategory.AvailableSlots--;
+            }
+            else if (enrolment.EnrolmentStatus == "Confirmed")
+            {
+                enrolment.EventCategory.AvailableSlots++;
+            }
+
+            enrolment.EnrolmentStatus = request.EnrolmentStatus;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(enrolment);
+        }
     }
 
     public class CreateEnrolmentRequest
     {
         public int EventCategoryID { get; set; }
         public int RaceNumber { get; set; }
+    }
+
+    public class UpdateEnrolmentStatusRequest
+    {
+        public string EnrolmentStatus { get; set; } = string.Empty;
     }
 }

@@ -60,6 +60,7 @@ namespace RaceDay.API.Controllers
             });
         }
 
+
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest request)
         {
@@ -86,6 +87,8 @@ namespace RaceDay.API.Controllers
                 role = user.Role
             });
         }
+
+
 
         [HttpPost("logout")]
         public IActionResult Logout()
