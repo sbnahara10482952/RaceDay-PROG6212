@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "Organiser Dashboard";
+}
+
+<div class="container mt-4">
+    <div class="mb-4">
+        <h1>Organiser Dashboard</h1>
+        <p>Welcome to RaceDay. Manage your running events from here.</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Event Management</h5>
+                    <p class="card-text">
+                        Create events, update event details and manage cancellations.
+                    </p>
+                    <a asp-controller="Organiser"
+                       asp-action="Events"
+                       class="btn btn-primary">
+                        Manage Events
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+    <div class="card h-100 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Race Categories</h5>
+
+            <p class="card-text">
+                Set up race distances, entry fees and participant limits.
+            </p>
+
+            <a asp-controller="Organiser"
+               asp-action="Categories"
+               class="btn btn-primary">
+                Manage Categories
+            </a>
+        </div>
+    </div>
+</div>
+
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Enrolments</h5>
+                    <p class="card-text">
+                        View participants enrolled in your events.
+                    </p>
+                    <p class="text-muted">Enrolment management is coming next.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Race Results</h5>
+                    <p class="card-text">
+                        Record finishing times, positions and race statuses.
+                    </p>
+                    <p class="text-muted">Results management is coming next.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <form asp-controller="Account" asp-action="Logout" method="post">
+            <button type="submit" class="btn btn-danger">Log Out</button>
+        </form>
+    </div>
+</div>

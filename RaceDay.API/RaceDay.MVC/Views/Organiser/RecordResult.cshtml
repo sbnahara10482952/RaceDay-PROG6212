@@ -1,0 +1,109 @@
+﻿@model RaceDay.MVC.ViewModels.ResultViewModel
+
+@{
+    ViewData["Title"] = "Record Race Result";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card shadow-sm">
+
+                <div class="card-header">
+                    <h3 class="mb-0">Record Race Result</h3>
+                    <small class="text-muted">@ViewBag.EventName</small>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="alert alert-info">
+                        <strong>Participant:</strong> @Model.ParticipantName
+                        <br />
+                        <strong>Race Number:</strong> @Model.RaceNumber
+                    </div>
+
+                    <form asp-controller="Organiser"
+                          asp-action="RecordResult"
+                          asp-route-eventId="@ViewBag.EventID"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden" asp-for="EnrolmentID" />
+                        <input type="hidden" asp-for="ParticipantID" />
+
+                        <div asp-validation-summary="ModelOnly"
+                             class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="FinishTime"
+                                   class="form-label">
+                                Finish Time
+                            </label>
+
+                            <input asp-for="FinishTime"
+                                   type="time"
+                                   step="1"
+                                   class="form-control" />
+
+                            <span asp-validation-for="FinishTime"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Position"
+                                   class="form-label">
+                                Finishing Position
+                            </label>
+
+                            <input asp-for="Position"
+                                   type="number"
+                                   min="1"
+                                   class="form-control"
+                                   placeholder="e.g. 1" />
+
+                            <span asp-validation-for="Position"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ResultStatus"
+                                   class="form-label">
+                                Result Status
+                            </label>
+
+                            <select asp-for="ResultStatus"
+                                    class="form-select">
+                                <option value="Finished">Finished</option>
+                                <option value="DNS">DNS (Did Not Start)</option>
+                                <option value="DNF">DNF (Did Not Finish)</option>
+                            </select>
+
+                            <span asp-validation-for="ResultStatus"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            Save Result
+                        </button>
+
+                        <a asp-controller="Organiser"
+                           asp-action="Enrolments"
+                           asp-route-eventId="@ViewBag.EventID"
+                           class="btn btn-secondary">
+                            Back
+                        </a>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,119 @@
+﻿@model List<RaceDay.MVC.ViewModels.EventCategoryViewModel>
+
+@{
+    ViewData["Title"] = "Manage Event Categories";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="fw-bold">Manage Categories</h1>
+            <p class="text-muted">
+                Event: @ViewBag.EventName
+            </p>
+        </div>
+
+        <a asp-controller="Organiser"
+           asp-action="AddCategory"
+           asp-route-eventId="@ViewBag.EventID"
+           class="btn btn-primary">
+            Add Category
+        </a>
+    </div>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+    else if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info">
+            No race categories have been added to this event yet.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover align-middle">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>Category</th>
+                        <th>Distance</th>
+                        <th>Entry Fee</th>
+                        <th>Maximum Participants</th>
+                        <th>Available Slots</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var category in Model)
+                    {
+                        <tr>
+                            <td>
+                                <strong>@category.CategoryName</strong>
+                                <br />
+                                <small class="text-muted">
+                                    @category.Description
+                                </small>
+                            </td>
+
+                            <td>@category.DistanceKm km</td>
+
+                            <td>R @category.EntryFee.ToString("N2")</td>
+
+                            <td>@category.MaxParticipants</td>
+
+                            <td>@category.AvailableSlots</td>
+
+                            <td>
+                                <a asp-controller="Organiser"
+                                   asp-action="EditCategory"
+                                   asp-route-eventId="@ViewBag.EventID"
+                                   asp-route-categoryId="@category.EventCategoryID"
+                                   class="btn btn-warning btn-sm">
+                                    Edit
+                                </a>
+
+                                <form asp-controller="Organiser"
+                                      asp-action="DeleteCategory"
+                                      asp-route-eventId="@ViewBag.EventID"
+                                      asp-route-categoryId="@category.EventCategoryID"
+                                      method="post"
+                                      class="d-inline"
+                                      onsubmit="return confirm('Are you sure you want to remove this category?');">
+
+                                    @Html.AntiForgeryToken()
+
+                                    <button type="submit"
+                                            class="btn btn-danger btn-sm">
+                                        Delete
+                                    </button>
+
+                                </form>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+    }
+
+    <div class="mt-4">
+        <a asp-controller="Organiser"
+           asp-action="Categories"
+           class="btn btn-outline-secondary">
+            Back to Events
+        </a>
+    </div>
+
+</div>

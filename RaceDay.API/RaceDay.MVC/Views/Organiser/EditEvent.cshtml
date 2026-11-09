@@ -1,0 +1,199 @@
+﻿@model RaceDay.MVC.ViewModels.CreateEventViewModel
+
+@{
+    ViewData["Title"] = "Edit Event";
+}
+
+<div class="container mt-4">
+
+    <div class="mb-4">
+        <h1 class="fw-bold">Edit Event</h1>
+        <p class="text-muted">
+            Update the information for your RaceDay event.
+        </p>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+
+            <form asp-controller="Organiser"
+                  asp-action="EditEvent"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" name="id" value="@ViewBag.EventID" />
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3">
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="EventName" class="form-label">
+                        Event Name
+                    </label>
+
+                    <input asp-for="EventName" class="form-control" />
+
+                    <span asp-validation-for="EventName"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">
+                        Event Description
+                    </label>
+
+                    <textarea asp-for="Description"
+                              class="form-control"
+                              rows="3"></textarea>
+
+                    <span asp-validation-for="Description"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="EventDate" class="form-label">
+                            Event Date
+                        </label>
+
+                        <input asp-for="EventDate"
+                               type="date"
+                               class="form-control" />
+
+                        <span asp-validation-for="EventDate"
+                              class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="StartTime" class="form-label">
+                            Start Time
+                        </label>
+
+                        <input asp-for="StartTime"
+                               type="time"
+                               class="form-control" />
+
+                        <span asp-validation-for="StartTime"
+                              class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Location" class="form-label">
+                        Event Location
+                    </label>
+
+                    <input asp-for="Location" class="form-control" />
+
+                    <span asp-validation-for="Location"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="DistanceKm" class="form-label">
+                            Distance (km)
+                        </label>
+
+                        <input asp-for="DistanceKm"
+                               type="number"
+                               step="0.1"
+                               min="0.1"
+                               max="100"
+                               class="form-control" />
+
+                        <span asp-validation-for="DistanceKm"
+                              class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="EventType" class="form-label">
+                            Event Type
+                        </label>
+
+                        <select asp-for="EventType" class="form-select">
+                            <option value="Run">Run</option>
+                            <option value="Walk">Walk</option>
+                            <option value="Cycle">Cycle</option>
+                        </select>
+
+                        <span asp-validation-for="EventType"
+                              class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <div class="d-flex gap-2">
+
+                    <button type="submit" class="btn btn-primary">
+                        Save Changes
+                    </button>
+
+                    <a asp-controller="Organiser"
+                       asp-action="Events"
+                       class="btn btn-outline-secondary">
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+    <!-- Event Banner Upload -->
+    <div class="card shadow-sm mt-4">
+        <div class="card-body p-4">
+
+            <h4 class="fw-bold">Event Banner Image</h4>
+
+            <p class="text-muted">
+                Upload a banner image for this event.
+                Accepted formats: JPEG, PNG and WebP. Maximum size: 5 MB.
+            </p>
+
+            <form asp-controller="Organiser"
+                  asp-action="UploadBanner"
+                  method="post"
+                  enctype="multipart/form-data">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden"
+                       name="id"
+                       value="@ViewBag.EventID" />
+
+                <div class="mb-3">
+                    <label for="file" class="form-label">
+                        Select Banner Image
+                    </label>
+
+                    <input type="file"
+                           id="file"
+                           name="file"
+                           class="form-control"
+                           accept=".jpg,.jpeg,.png,.webp"
+                           required />
+                </div>
+
+                <button type="submit" class="btn btn-success">
+                    Upload Banner
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

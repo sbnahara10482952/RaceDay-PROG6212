@@ -1,0 +1,196 @@
+﻿@model List<RaceDay.MVC.ViewModels.EnrolmentViewModel>
+
+@{
+    ViewData["Title"] = "Event Enrolments";
+}
+
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="fw-bold">Event Enrolments</h1>
+            <p class="text-muted">
+                Event: @ViewBag.EventName
+            </p>
+
+            <a asp-controller="Organiser"
+               asp-action="EventResults"
+               asp-route-eventId="@ViewBag.EventID"
+               class="btn btn-primary">
+                View Event Results
+            </a>
+        </div>
+
+        <span class="badge bg-primary fs-6">
+            Total Participants: @Model.Count
+        </span>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+    else if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info">
+            No participants have enrolled in this event yet.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover align-middle">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>Participant</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Race Category</th>
+                        <th>Distance</th>
+                        <th>Race Number</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var enrolment in Model)
+                    {
+                        <tr>
+                            <td>
+                                <strong>@enrolment.ParticipantName</strong>
+                            </td>
+
+                            <td>@enrolment.ParticipantEmail</td>
+
+                            <td>
+                                @(string.IsNullOrWhiteSpace(enrolment.ParticipantPhone)
+                                    ? "Not provided"
+                                    : enrolment.ParticipantPhone)
+                            </td>
+
+                            <td>@enrolment.CategoryName</td>
+
+                            <td>@enrolment.DistanceKm km</td>
+
+                            <td>
+                                <span class="badge bg-secondary">
+                                    @enrolment.RaceNumber
+                                </span>
+                            </td>
+
+                            <td>
+                                @if (enrolment.EnrolmentStatus == "Confirmed")
+                                {
+                                    <span class="badge bg-success">Confirmed</span>
+                                }
+                                else if (enrolment.EnrolmentStatus == "Cancelled")
+                                {
+                                    <span class="badge bg-danger">Cancelled</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">
+                                        @enrolment.EnrolmentStatus
+                                    </span>
+                                }
+                            </td>
+
+                            <td>
+                                @if (enrolment.EnrolmentStatus == "Pending")
+                                {
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <form asp-controller="Organiser"
+                                              asp-action="UpdateEnrolmentStatus"
+                                              method="post">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="eventId" value="@ViewBag.EventID" />
+                                            <input type="hidden" name="enrolmentId" value="@enrolment.EnrolmentID" />
+                                            <input type="hidden" name="enrolmentStatus" value="Confirmed" />
+
+                                            <button type="submit" class="btn btn-success btn-sm">
+                                                Confirm
+                                            </button>
+                                        </form>
+
+                                        <form asp-controller="Organiser"
+                                              asp-action="UpdateEnrolmentStatus"
+                                              method="post"
+                                              onsubmit="return confirm('Are you sure you want to cancel this enrolment?');">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="eventId" value="@ViewBag.EventID" />
+                                            <input type="hidden" name="enrolmentId" value="@enrolment.EnrolmentID" />
+                                            <input type="hidden" name="enrolmentStatus" value="Cancelled" />
+
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                Cancel
+                                            </button>
+                                        </form>
+                                    </div>
+                                }
+                                else if (enrolment.EnrolmentStatus == "Confirmed")
+                                {
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <a asp-controller="Organiser"
+                                           asp-action="RecordResult"
+                                           asp-route-eventId="@ViewBag.EventID"
+                                           asp-route-enrolmentId="@enrolment.EnrolmentID"
+                                           class="btn btn-primary btn-sm">
+                                            Record Result
+                                        </a>
+
+                                        <form asp-controller="Organiser"
+                                              asp-action="UpdateEnrolmentStatus"
+                                              method="post"
+                                              onsubmit="return confirm('Are you sure you want to cancel this enrolment?');">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="eventId" value="@ViewBag.EventID" />
+                                            <input type="hidden" name="enrolmentId" value="@enrolment.EnrolmentID" />
+                                            <input type="hidden" name="enrolmentStatus" value="Cancelled" />
+
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                Cancel
+                                            </button>
+                                        </form>
+                                    </div>
+                                }
+                                else if (enrolment.EnrolmentStatus == "Completed")
+                                {
+                                    <span class="badge bg-success">Result Recorded</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Unavailable</span>
+                                }
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+    }
+
+    <div class="mt-4">
+        <a asp-controller="Organiser"
+           asp-action="Events"
+           class="btn btn-outline-secondary">
+            Back to Events
+        </a>
+    </div>
+
+</div>
