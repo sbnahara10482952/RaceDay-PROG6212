@@ -320,11 +320,11 @@ The `docs` folder contains planning and database documentation completed for Par
 
 Part 2 YouTube demonstration:
 
-https://youtu.be/0vyP-kBiOXI
+https://youtube/0vyP-kBiOXI
 
 Part 3 YouTube demonstration:
 
-[Add the Part 3 unlisted YouTube video link here after uploading.]
+https://youtube.com/shorts/by0BsE4IASg?si=JMPjZHISZ5t2zSqB
 
 ## 17. AI Use Disclosure
 

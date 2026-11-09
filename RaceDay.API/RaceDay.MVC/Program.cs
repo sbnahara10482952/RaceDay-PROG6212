@@ -5,10 +5,11 @@ builder.Services.AddHttpClient("RaceDayApi", client =>
 {
     var apiBaseUrl = builder.Configuration["ApiSettings:BaseUrl"];
 
-
-client.BaseAddress = new Uri(apiBaseUrl!);
-
-
+    client.BaseAddress = new Uri(apiBaseUrl!);
+})
+.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+{
+    UseCookies = false
 });
 
 // Enable session storage for MVC login information.
