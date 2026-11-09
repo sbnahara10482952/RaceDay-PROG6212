@@ -1,4 +1,22 @@
+# Visual Studio
 .vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.slnLaunch.user
+
+# Build outputs
 bin/
 obj/
+
+# Support files
 *.user*.support
+
+# Docker environment secrets
+.env
+.env.*
+!.env.example
+
+# Sensitive configuration
+secrets.json
